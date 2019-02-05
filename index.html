@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, rgb(242,246,248) 0%,rgb(216,225,231) 16%,rgb(216,225,231) 16%,rgb(216,225,231) 35%,rgb(224,239,249) 58%,rgb(224,239,249) 58%,rgb(181,198,208) 99%,rgb(181,198,208) 100%);
+        }
+        main {
+            width: 50%;
+            margin: auto;
+        }
+        input{
+            margin: 15px;
+        }
+        .task {
+            margin-bottom: 35px;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+    <main>
+
+<!--1. Перевод скорости из км/ч в м/c.-->
+<!--В input вводиться скорость (км/ч) по нажатию клавиши пересчитывать значение из км/ч в м/с
+ и выводить получившийся результат.-->
+        <div class="task">
+            <label for="speed">Введите скорость в км/ч </label>
+            <input id="speed" type="text">
+            <button id="conversion">Пересчитать</button><br>
+            <label for="result">Скорость в м/с: </label>
+            <div id="result"></div>
+        </div>
+        <hr>
+<!--2. Вывод знака зодиака по дате рождения.-->
+<!--После ввода в input даты рождения выводить знак зодиака в зависимости от полученных данных.
+Желательно использовать подход объектно-ориентированного программирования.-->
+        <div class="task">
+            <label for="birth">Введите дату рождения: </label>
+            <input id="birth" type="date" >
+            <button id="outZodiac">Узнать знак зодиака</button><br>
+            <label for="zodiac">Ваш знак зодиака - </label>
+            <div id="zodiac"></div>
+        </div>
+        <hr>
+<!--3. JQuery. Создать форму входа на сайт.-->
+<!--Реализовать форму входа в которую можно ввести логин и пароль,
+после чего сменить окно на информацию о том что авторизация прошла успешно. Без реализации backend’а соответственно.-->
+        <div class="task">
+            <div id="error"></div>
+            <div id="success"></div>
+            <form id="form">
+                <label for="login">Введите логин: </label>
+                <input id="login" type="text" autocomplete="username"><br>
+                <label for="pass">Введите пароль: </label>
+                <input id="pass" type="password" autocomplete="current-password"><br>
+                <input id="enter" type="submit">
+            </form>
+        </div>
+    </main>
+
+    <script type="text/javascript" src="script/myScript.js"></script>
+    <script type="text/javascript" src="jQuery/jquery.js"></script>
+    <script>
+
+        //3.
+        //use jQuery
+        $(function () {
+            $("#enter").click(function () {
+                //проверка введенных данных
+                var name = $("input#login").val();
+                var password = $("input#pass").val();
+
+                if (name == "" || password == "") {
+                    $("#error").append("Необходимо ввести логин и пароль");
+                    return false;
+                }
+
+                var dataStr = "name=" + name + "&password=" + password;
+
+                $.ajax({
+                    data: dataStr,
+                    success: function () {
+                        $("#form").hide();
+                        $("#error").hide();
+                        $("#success").append("Авторизация прошла успешно");
+                    }
+                });
+                return false;
+            });
+        });
+
+    </script>
+</body>
+</html>
